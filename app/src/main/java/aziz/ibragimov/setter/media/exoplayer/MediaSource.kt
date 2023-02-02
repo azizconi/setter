@@ -1,5 +1,6 @@
-package com.example.setter.media.exoplayer
+package aziz.ibragimov.setter.media.exoplayer
 
+import android.graphics.BitmapFactory
 import android.support.v4.media.MediaBrowserCompat
 import android.support.v4.media.MediaDescriptionCompat
 import android.support.v4.media.MediaMetadataCompat
@@ -58,6 +59,10 @@ class MediaSource@Inject constructor(private val repository: SetterRepository) {
                     MediaMetadataCompat.METADATA_KEY_DURATION,
                     audio.duration.toLong()
                 )
+                .putString(
+                    MediaMetadataCompat.METADATA_KEY_ALBUM_ART_URI,
+                    audio.albumartUri.path
+                )
                 .build()
         }
         state = AudioSourceState.STATE_INITIALIZED
@@ -92,6 +97,7 @@ class MediaSource@Inject constructor(private val repository: SetterRepository) {
             .setMediaId(metaData.description.mediaId)
             .setSubtitle(metaData.description.subtitle)
             .setMediaUri(metaData.description.mediaUri)
+            .setIconUri(metaData.description.iconUri)
             .build()
         MediaBrowserCompat.MediaItem(description, MediaBrowserCompat.MediaItem.FLAG_PLAYABLE)
 

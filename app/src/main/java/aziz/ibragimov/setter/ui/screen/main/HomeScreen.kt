@@ -24,7 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
 import aziz.ibragimov.setter.R
-import azizjon.ibragimov.setter.data.local.music.Music
+import aziz.ibragimov.setter.data.local.music.Music
 import aziz.ibragimov.setter.ui.screen.main.components.DynamicIsland
 import aziz.ibragimov.setter.ui.screen.main.components.MusicItem
 import aziz.ibragimov.setter.ui.screen.main.components.ToolbarMain
@@ -47,7 +47,8 @@ fun HomeScreen(
     onNext: () -> Unit,
     onPrevious: () -> Unit,
     onShuffled: (Boolean) -> Unit,
-    onRepeat: (Boolean) -> Unit
+    onRepeat: (Boolean) -> Unit,
+    onLongClick: () -> Unit
 ) {
     val scaffoldState = rememberBottomSheetScaffoldState()
 
@@ -155,7 +156,8 @@ fun HomeScreen(
                         isDynamicIslandExpand = it
                     },
                     state = dynamicIslandState,
-                    dynamicIslandStackStack = dynamicIslandStackStack
+                    dynamicIslandStack = dynamicIslandStackStack,
+                    onLongClick = onLongClick
                 )
             }
 

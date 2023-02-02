@@ -1,4 +1,4 @@
-package com.example.setter.media.exoplayer
+package aziz.ibragimov.setter.media.exoplayer
 
 import android.content.ComponentName
 import android.content.Context
@@ -8,8 +8,8 @@ import android.support.v4.media.session.MediaControllerCompat
 import android.support.v4.media.session.PlaybackStateCompat
 import android.util.Log
 import androidx.compose.runtime.mutableStateOf
-import azizjon.ibragimov.setter.data.local.music.Music
-import azizjon.ibragimov.setter.media.service.MediaPlayerService
+import aziz.ibragimov.setter.data.local.music.Music
+import aziz.ibragimov.setter.media.service.MediaPlayerService
 import com.example.setter.utils.Constants
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -60,12 +60,8 @@ class MediaPlayerServiceConnection  @Inject constructor(
         mediaBrowser.sendCustomAction(Constants.START_MEDIA_PLAY_ACTION,null,null)
     }
 
-    fun currentMusic() {
-        mediaBrowser
-    }
-
-
     fun fastForward(seconds:Int = 10){
+
         plaBackState.value?.currentPosition?.let {
             transportControl.seekTo(it + seconds * 1000)
         }
@@ -75,6 +71,10 @@ class MediaPlayerServiceConnection  @Inject constructor(
         plaBackState.value?.currentPosition?.let {
             transportControl.seekTo(it - seconds * 1000)
         }
+    }
+
+    fun stopMode() {
+        transportControl.stop()
     }
 
     fun skipToNext(){

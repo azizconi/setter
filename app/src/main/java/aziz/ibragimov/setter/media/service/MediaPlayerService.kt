@@ -1,4 +1,4 @@
-package azizjon.ibragimov.setter.media.service
+package aziz.ibragimov.setter.media.service
 
 import android.app.Notification
 import android.app.PendingIntent
@@ -11,13 +11,13 @@ import android.support.v4.media.MediaDescriptionCompat
 import android.support.v4.media.MediaMetadataCompat
 import android.support.v4.media.session.MediaSessionCompat
 import android.support.v4.media.session.PlaybackStateCompat
+import android.util.Log
 import android.widget.Toast
-import androidx.compose.runtime.mutableStateOf
 import androidx.core.content.ContextCompat
 import androidx.media.MediaBrowserServiceCompat
 import aziz.ibragimov.setter.R
 import aziz.ibragimov.setter.media.exoplayer.MediaPlayerNotificationManager
-import com.example.setter.media.exoplayer.MediaSource
+import aziz.ibragimov.setter.media.exoplayer.MediaSource
 import com.example.setter.utils.Constants
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.PlaybackException
@@ -51,7 +51,6 @@ class MediaPlayerService : MediaBrowserServiceCompat() {
     private lateinit var mediaPlayerNotificationManager: MediaPlayerNotificationManager
     private var currentPlayingMedia: MediaMetadataCompat? = null
 
-    private val currentMusic = mutableStateOf("")
 
     private val isPlayerInitialized = false
     var isForegroundService: Boolean = false
@@ -61,12 +60,15 @@ class MediaPlayerService : MediaBrowserServiceCompat() {
 
         var currentDuration: Long = 0L
             private set
-
-
     }
+
+
+
 
     override fun onCreate() {
         super.onCreate()
+
+
         val sessionActivityIntent = packageManager
             ?.getLaunchIntentForPackage(packageName)
             ?.let { sessionIntent ->
@@ -106,7 +108,7 @@ class MediaPlayerService : MediaBrowserServiceCompat() {
         }
         mediaPlayerNotificationManager.showNotification(exoPlayer)
 
-
+//        Log.e(TAG, "onCreate: ${mediaSource.audioMediaMetaData[0].description.mediaUri}", )
     }
 
 
@@ -147,7 +149,6 @@ class MediaPlayerService : MediaBrowserServiceCompat() {
 
     }
 
-
     override fun onCustomAction(
         action: String,
         extras: Bundle?,
@@ -178,6 +179,7 @@ class MediaPlayerService : MediaBrowserServiceCompat() {
         super.onDestroy()
         serviceScope.cancel()
         exoPlayer.release()
+        Log.e(TAG, "onDestroy: ")
     }
 
 
@@ -240,7 +242,6 @@ class MediaPlayerService : MediaBrowserServiceCompat() {
 
 
                 currentPlayingMedia = itemToPlay
-                currentMusic.value = itemToPlay?.description?.mediaId.toString()
 
                 preparePlayer(
                     mediaMetadata = mediaSource.audioMediaMetaData,
@@ -291,14 +292,19 @@ class MediaPlayerService : MediaBrowserServiceCompat() {
         itemToPlay: MediaMetadataCompat?,
         playWhenReady: Boolean
     ) {
-        val indexToPlay = if (currentPlayingMedia == null) 0
-        else mediaMetadata.indexOf(itemToPlay)
+        val indexToPlay = if (currentPlayingMedia == null) {
+            0
+        } else {
+            Log.e(TAG, "preparePlayer: ${itemToPlay?.description?.mediaId}")
+            mediaMetadata.indexOf(itemToPlay)
+        }
 
         exoPlayer.addListener(PlayerEventListener())
         exoPlayer.setMediaSource(
             mediaSource
                 .asMediaSource(dataSourceFactory)
         )
+
         exoPlayer.prepare()
         exoPlayer.seekTo(indexToPlay, 0)
         exoPlayer.playWhenReady = playWhenReady
@@ -356,6 +362,6 @@ class MediaPlayerService : MediaBrowserServiceCompat() {
     }
 
 
-
-
 }
+
+

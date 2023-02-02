@@ -1,4 +1,4 @@
-package com.example.setter.ui.screen.main.viewModel
+package aziz.ibragimov.setter.ui.screen.main.viewModel
 
 
 import android.support.v4.media.MediaBrowserCompat
@@ -7,12 +7,12 @@ import android.util.Log
 import androidx.compose.runtime.*
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import azizjon.ibragimov.setter.data.local.music.Music
+import aziz.ibragimov.setter.data.local.music.Music
 import azizjon.ibragimov.setter.data.repository.SetterRepository
-import com.example.setter.media.exoplayer.MediaPlayerServiceConnection
-import com.example.setter.media.exoplayer.currentPosition
-import com.example.setter.media.exoplayer.isPlaying
-import azizjon.ibragimov.setter.media.service.MediaPlayerService
+import aziz.ibragimov.setter.media.exoplayer.MediaPlayerServiceConnection
+import aziz.ibragimov.setter.media.exoplayer.currentPosition
+import aziz.ibragimov.setter.media.exoplayer.isPlaying
+import aziz.ibragimov.setter.media.service.MediaPlayerService
 import com.example.setter.utils.Constants
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
@@ -132,6 +132,10 @@ class SetterViewModel @Inject constructor(
 
     fun skipToNext() {
         serviceConnection.skipToNext()
+    }
+
+    fun stopMode() {
+        serviceConnection.stopMode()
     }
 
     fun skipToPrevious() {

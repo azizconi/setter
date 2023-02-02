@@ -1,4 +1,4 @@
-package com.example.setter.media.exoplayer
+package aziz.ibragimov.setter.media.exoplayer
 
 import android.os.SystemClock
 import android.support.v4.media.session.PlaybackStateCompat

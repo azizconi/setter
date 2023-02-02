@@ -3,15 +3,21 @@ package aziz.ibragimov.setter.media.exoplayer
 import android.app.PendingIntent
 import android.content.Context
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.drawable.Drawable
 import android.support.v4.media.session.MediaControllerCompat
 import android.support.v4.media.session.MediaSessionCompat
+import android.util.Log
 import aziz.ibragimov.setter.R
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.target.CustomTarget
+import com.bumptech.glide.request.transition.Transition
 import com.example.setter.utils.Constants
 import com.google.android.exoplayer2.Player
 import com.google.android.exoplayer2.ui.PlayerNotificationManager
 
 internal class MediaPlayerNotificationManager(
-    context: Context,
+    private val context: Context,
     sessionToken: MediaSessionCompat.Token,
     notificationListener: PlayerNotificationManager.NotificationListener
 ) {
@@ -19,6 +25,7 @@ internal class MediaPlayerNotificationManager(
 
     init {
         val mediaController = MediaControllerCompat(context, sessionToken)
+
 
         val builder = PlayerNotificationManager.Builder(
             context,
@@ -36,9 +43,10 @@ internal class MediaPlayerNotificationManager(
 
         notificationManager = builder.build()
 
+
         with(notificationManager) {
             setMediaSessionToken(sessionToken)
-            setSmallIcon(R.drawable.ic_baseline_music_note_icon_app)
+            setSmallIcon(R.drawable.music)
             setUseRewindAction(false)
             setUseFastForwardAction(false)
         }
@@ -47,11 +55,11 @@ internal class MediaPlayerNotificationManager(
     }
 
 
-    fun hideNotification(){
+    fun hideNotification() {
         notificationManager.setPlayer(null)
     }
 
-    fun showNotification(player: Player){
+    fun showNotification(player: Player) {
         notificationManager.setPlayer(player)
     }
 
@@ -63,8 +71,8 @@ internal class MediaPlayerNotificationManager(
         override fun getCurrentContentTitle(player: Player): CharSequence =
             controller.metadata.description.title.toString()
 
-        override fun createCurrentContentIntent(player: Player): PendingIntent?{
-          return controller.sessionActivity
+        override fun createCurrentContentIntent(player: Player): PendingIntent? {
+            return controller.sessionActivity
         }
 
 
@@ -75,11 +83,18 @@ internal class MediaPlayerNotificationManager(
             player: Player,
             callback: PlayerNotificationManager.BitmapCallback
         ): Bitmap? {
-            return null
+
+            Log.e("TAG", "getCurrentLargeIcon: ${controller.metadata.description.iconUri}", )
+//            loadBitmap(
+//                controller.metadata.description.iconUri?.path
+//                    ?: "android.resource://${context.packageName}/${R.drawable.music}",
+//                callback
+//            )
+            return controller.metadata.description.iconBitmap
         }
 
 
-
+        
     }
 
 

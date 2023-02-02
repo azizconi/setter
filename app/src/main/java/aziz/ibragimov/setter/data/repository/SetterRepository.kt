@@ -1,7 +1,7 @@
 package azizjon.ibragimov.setter.data.repository
 
 import azizjon.ibragimov.setter.data.ContentResolverHelper
-import azizjon.ibragimov.setter.data.local.music.Music
+import aziz.ibragimov.setter.data.local.music.Music
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject

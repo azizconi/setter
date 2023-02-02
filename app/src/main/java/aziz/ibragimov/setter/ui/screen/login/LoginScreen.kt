@@ -1,4 +1,4 @@
-package com.example.setter.ui.screen.login
+package aziz.ibragimov.setter.ui.screen.login
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*

@@ -24,7 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.rememberAsyncImagePainter
 import aziz.ibragimov.setter.R
-import azizjon.ibragimov.setter.data.local.music.Music
+import aziz.ibragimov.setter.data.local.music.Music
 import aziz.ibragimov.setter.ui.theme.RobotoFonts
 import com.example.setter.ui.theme.TextColor
 

@@ -6,7 +6,7 @@ import android.net.Uri
 import android.os.Build
 import android.provider.MediaStore
 import androidx.annotation.WorkerThread
-import azizjon.ibragimov.setter.data.local.music.Music
+import aziz.ibragimov.setter.data.local.music.Music
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 

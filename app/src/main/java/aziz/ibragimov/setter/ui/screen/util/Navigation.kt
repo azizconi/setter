@@ -4,8 +4,8 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.setter.ui.screen.login.LoginScreen
-import com.example.setter.ui.screen.main.viewModel.SetterViewModel
+import aziz.ibragimov.setter.ui.screen.login.LoginScreen
+import aziz.ibragimov.setter.ui.screen.main.viewModel.SetterViewModel
 import com.example.setter.ui.screen.register.RegisterScreen
 
 

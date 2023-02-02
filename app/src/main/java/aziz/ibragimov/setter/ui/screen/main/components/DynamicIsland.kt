@@ -5,9 +5,7 @@ import android.util.Log
 import androidx.compose.animation.*
 import androidx.compose.animation.core.keyframes
 import androidx.compose.animation.core.tween
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
@@ -29,7 +27,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.rememberAsyncImagePainter
 import aziz.ibragimov.setter.R
-import azizjon.ibragimov.setter.data.local.music.Music
+import aziz.ibragimov.setter.data.local.music.Music
 import com.example.setter.ui.theme.LineColor
 import com.example.setter.ui.theme.Purple1
 import com.example.setter.ui.theme.Purple2
@@ -38,7 +36,7 @@ import azizjon.ibragimov.setter.utils.StateDynamicIsland
 import azizjon.ibragimov.setter.utils.StateDynamicIslandStack
 
 
-@OptIn(ExperimentalAnimationApi::class)
+@OptIn(ExperimentalAnimationApi::class, ExperimentalFoundationApi::class)
 @Composable
 fun DynamicIsland(
     modifier: Modifier = Modifier,
@@ -54,12 +52,14 @@ fun DynamicIsland(
     state: StateDynamicIsland,
     onShuffled: (Boolean) -> Unit,
     onRepeat: (Boolean) -> Unit,
-    dynamicIslandStackStack: StateDynamicIslandStack
+    dynamicIslandStack: StateDynamicIslandStack,
+    onLongClick: () -> Unit
 ) {
 
     LaunchedEffect(key1 = isAudioPlaying) {
-        Log.e("TAG", "DynamicIsland: ${isAudioPlaying}")
+        Log.e("TAG", "DynamicIsland: $isAudioPlaying")
     }
+
     var position by remember {
         mutableStateOf(0f)
     }
@@ -112,11 +112,16 @@ fun DynamicIsland(
                 ) else RoundedCornerShape(40.dp)
             )
             .background(Color.Black)
-            .clickable(
+            .combinedClickable(
                 onClick = {
                     expanded = !expanded
                     onClickDynamicIsland(expanded)
                 },
+                onLongClick = {
+                    onLongClick()
+                    Log.e("TAG", "DynamicIsland: ",)
+                }
+
             )
     ) {
         Box(
@@ -194,12 +199,12 @@ fun DynamicIsland(
                                 Box(
                                     modifier = modifier
                                         .size(
-                                            width = when (dynamicIslandStackStack) {
+                                            width = when (dynamicIslandStack) {
                                                 is StateDynamicIslandStack.Hide -> {
                                                     0.dp
                                                 }
                                                 is StateDynamicIslandStack.Expand -> {
-                                                    160.dp
+                                                    /*160*/130.dp
                                                 }
                                                 is StateDynamicIslandStack.SearchInputOpen -> {
                                                     30.dp
